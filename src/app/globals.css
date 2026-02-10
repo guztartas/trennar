@@ -371,15 +371,29 @@ h1 {
   line-height: 1.7;
 }
 
-.gallery-grid {
+.gallery-carousel-frame {
   margin-top: 1.2rem;
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.95rem;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--radius-medium);
+}
+
+.carousel-track {
+  display: flex;
+  gap: var(--carousel-gap);
 }
 
 .gallery-item {
   margin: 0;
+  flex: 0 0
+    calc(
+      (100% - (var(--carousel-columns) - 1) * var(--carousel-gap)) /
+        var(--carousel-columns)
+    );
   border-radius: var(--radius-medium);
   overflow: hidden;
   aspect-ratio: 1.1;
@@ -390,6 +404,66 @@ h1 {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.carousel-arrow {
+  border: 1px solid var(--line-soft);
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.16);
+  color: var(--color-light);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 220ms ease,
+    color 220ms ease,
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.carousel-arrow:hover {
+  border-color: var(--line-strong);
+  color: var(--color-yellow);
+  background: rgba(251, 216, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.carousel-dot {
+  border: 0;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--color-gray) 70%, transparent);
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease;
+}
+
+.carousel-dot.is-active {
+  background: var(--color-yellow);
+  transform: scale(1.1);
 }
 
 .contact {
@@ -465,8 +539,7 @@ h1 {
   }
 
   .services-grid,
-  .team-grid,
-  .gallery-grid {
+  .team-grid {
     grid-template-columns: 1fr;
   }
 

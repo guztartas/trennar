@@ -21,7 +21,7 @@ Site institucional em Next.js para clínica de fisioterapia, com foco em reabili
 2. `npm run build`
 3. `npm run start`
 
-## Estrutura de imagens para substituir
+## Estrutura de imagens
 
 Profissionais:
 
@@ -32,15 +32,15 @@ Profissionais:
 
 Galerias:
 
-- `public/images/galeria/fisioterapia-01.jpg`
-- `public/images/galeria/fisioterapia-02.jpg`
-- `public/images/galeria/fisioterapia-03.jpg`
-- `public/images/galeria/pilates-01.jpg`
-- `public/images/galeria/pilates-02.jpg`
-- `public/images/galeria/pilates-03.jpg`
-- `public/images/galeria/atendimento-01.jpg`
-- `public/images/galeria/atendimento-02.jpg`
-- `public/images/galeria/atendimento-03.jpg`
+- `public/images/galeria/fisioterapia/`
+- `public/images/galeria/pilates/`
+- `public/images/galeria/atendimento/`
+
+As seções carregam automaticamente todas as imagens dessas pastas e exibem em carrossel responsivo:
+
+- desktop: 3 imagens por página
+- tablet: 2 imagens por página
+- mobile: 1 imagem por página
 
 Logo:
 
