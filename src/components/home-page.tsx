@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { GalleryCarousel } from '@/components/gallery-carousel';
 import type { GallerySection } from '@/lib/gallery-sections';
 
-const WHATSAPP_NUMBER = '54996156846';
+const WHATSAPP_NUMBER = '5554981090641';
 const WHATSAPP_BASE_URL = 'https://api.whatsapp.com/send/';
 const INSTAGRAM_URL = 'https://www.instagram.com/trennar.fisioterapia/';
 const FACEBOOK_URL =
