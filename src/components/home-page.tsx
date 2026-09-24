@@ -169,7 +169,7 @@ const treatments: Treatment[] = [
     note: 'Seg–qui: 7h–12h e 13h–19h · sex: 7h–12h · sem convênios',
     whatsappLabel: 'Fisioterapia individual',
   },
-];
+].reverse();
 
 type HomePageProps = {
   gallerySections: GallerySection[];
