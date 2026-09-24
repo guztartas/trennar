@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 import { GalleryCarousel } from '@/components/gallery-carousel';
+import {
+  TreatmentCarousel,
+  type Treatment,
+} from '@/components/treatment-carousel';
 import type { GallerySection } from '@/lib/gallery-sections';
 
 const WHATSAPP_NUMBER = '5554981090641';
@@ -56,12 +60,122 @@ const professionals: Professional[] = [
   },
 ];
 
+const treatments: Treatment[] = [
+  {
+    id: 'pilates-individual',
+    category: 'Pilates clínico',
+    title: 'Aulas individuais',
+    eyebrow: 'Acompanhamento 1:1',
+    description:
+      'Uma fisioterapeuta acompanha cada exercício de perto e adapta o treino aos seus objetivos.',
+    features: [
+      'Evolução segura e progressiva',
+      'Exercícios totalmente adaptados',
+      'Foco exclusivo no seu movimento',
+    ],
+    prices: [
+      { label: '1x por semana', value: 'R$ 360/mês', detail: 'R$ 90 por aula' },
+      { label: '2x por semana', value: 'R$ 640/mês', detail: 'R$ 80 por aula' },
+    ],
+    duration: '50 minutos por aula',
+    whatsappLabel: 'Pilates individual',
+  },
+  {
+    id: 'pilates-dupla',
+    category: 'Pilates clínico',
+    title: 'Aulas em dupla',
+    eyebrow: 'Objetivos alinhados',
+    description:
+      'Treino compartilhado, acompanhado por uma fisioterapeuta em um ambiente profissional e motivador.',
+    features: [
+      'Dupla com objetivos compatíveis',
+      'Evolução segura e progressiva',
+      'Exercícios adaptados para cada pessoa',
+    ],
+    prices: [
+      { label: '1x por semana', value: 'R$ 260/mês', detail: 'R$ 65 por aula' },
+      { label: '2x por semana', value: 'R$ 480/mês', detail: 'R$ 60 por aula' },
+    ],
+    duration: '50 minutos por aula',
+    whatsappLabel: 'Pilates em dupla',
+  },
+  {
+    id: 'liberacao-miofascial',
+    category: 'Terapia manual',
+    title: 'Liberação miofascial',
+    eyebrow: 'Menos tensão, mais movimento',
+    description:
+      'Atendimento especializado para aliviar desconfortos, recuperar mobilidade e melhorar o bem-estar.',
+    features: [
+      'Técnicas manuais avançadas',
+      'Redução de dores e pontos de tensão',
+      'Melhora da amplitude de movimento',
+      'Pós-treino, prevenção, esporte e sobrecarga',
+    ],
+    prices: [{ label: 'Sessão individual', value: 'R$ 170' }],
+    duration: 'Duração média de 50 minutos',
+    note: 'Realizada por fisioterapeutas',
+    whatsappLabel: 'Liberação miofascial',
+  },
+  {
+    id: 'reabilitacao-padrao-ouro',
+    category: 'Reabilitação',
+    title: 'Padrão Ouro',
+    eyebrow: '3 vezes por semana',
+    description:
+      'Maior frequência de estímulos e acompanhamento próximo para acelerar a progressão em cada fase.',
+    features: [
+      'Ajustes frequentes conforme a evolução',
+      'Acompanhamento de força e mobilidade',
+      'Mais consistência na recuperação',
+    ],
+    prices: [{ label: 'Plano intensivo', value: 'Consulte' }],
+    duration: '3 atendimentos por semana',
+    whatsappLabel: 'Plano de reabilitação Padrão Ouro',
+  },
+  {
+    id: 'reabilitacao-padrao',
+    category: 'Reabilitação',
+    title: 'Plano Padrão',
+    eyebrow: '2 vezes por semana',
+    description:
+      'Acompanhamento presencial contínuo com exercícios supervisionados e progressão planejada.',
+    features: [
+      'Progressão de mobilidade e força',
+      'Evolução planejada em cada fase',
+      'Segurança durante a reabilitação',
+    ],
+    prices: [{ label: 'Plano de acompanhamento', value: 'Consulte' }],
+    duration: '2 atendimentos por semana',
+    whatsappLabel: 'Plano de reabilitação Padrão',
+  },
+  {
+    id: 'fisioterapia-individual',
+    category: 'Fisioterapia',
+    title: 'Atendimento individual',
+    eyebrow: 'Plano feito para você',
+    description:
+      'Avaliação e exercícios planejados conforme seus objetivos, com foco total no movimento e nos resultados.',
+    features: [
+      'Atendimento individualizado',
+      'Evolução segura e progressiva',
+      'Acompanhamento profissional exclusivo',
+    ],
+    prices: [
+      { label: '1x por semana', value: 'R$ 170', detail: 'por atendimento' },
+      { label: '2x ou mais', value: 'R$ 145', detail: 'por atendimento' },
+    ],
+    duration: '50 minutos por atendimento',
+    note: 'Seg–qui: 7h–12h e 13h–19h · sex: 7h–12h · sem convênios',
+    whatsappLabel: 'Fisioterapia individual',
+  },
+];
+
 type HomePageProps = {
   gallerySections: GallerySection[];
 };
 
-const getContactLink = (professionalName: string) => {
-  const message = `Olá, quero fazer um atendimento com ${professionalName}.`;
+const getWhatsAppLink = (message: string) => {
   const query = new URLSearchParams({
     phone: WHATSAPP_NUMBER,
     text: message,
@@ -72,6 +186,14 @@ const getContactLink = (professionalName: string) => {
 
   return `${WHATSAPP_BASE_URL}?${query.toString()}`;
 };
+
+const getProfessionalContactLink = (professionalName: string) =>
+  getWhatsAppLink(`Olá, quero fazer um atendimento com ${professionalName}.`);
+
+const getServiceContactLink = (serviceName: string) =>
+  getWhatsAppLink(
+    `Olá! Quero saber mais e agendar o serviço de ${serviceName}.`,
+  );
 
 const loadReveal = (delay: number, distance = 28) => ({
   initial: { opacity: 0, y: distance },
@@ -112,8 +234,8 @@ export function HomePage({ gallerySections }: HomePageProps) {
             </motion.h1>
 
             <motion.p className='hero-text' {...loadReveal(0.24)}>
-              Fisioterapia e pilates clínico com atendimento individualizado para
-              dor, mobilidade, performance e qualidade de vida.
+              Fisioterapia e pilates clínico com atendimento individualizado
+              para dor, mobilidade, performance e qualidade de vida.
             </motion.p>
 
             <motion.ul className='hero-bio-list' {...loadReveal(0.3, 18)}>
@@ -124,7 +246,9 @@ export function HomePage({ gallerySections }: HomePageProps) {
 
             <motion.div className='hero-actions' {...loadReveal(0.32)}>
               <a
-                href={getContactLink('um profissional da equipe Trennar')}
+                href={getProfessionalContactLink(
+                  'um profissional da equipe Trennar',
+                )}
                 target='_blank'
                 rel='noreferrer'
               >
@@ -161,39 +285,12 @@ export function HomePage({ gallerySections }: HomePageProps) {
           <h2>Atendimento orientado pelas especialidades da clínica</h2>
         </motion.div>
 
-        <div className='services-grid'>
-          <motion.article className='service-card' {...scrollReveal(0.12)}>
-            <h3>Reabilitação de Joelho</h3>
-            <p>
-              Estratégias terapêuticas para estabilidade, força e retorno seguro às
-              atividades.
-            </p>
-          </motion.article>
-
-          <motion.article className='service-card' {...scrollReveal(0.18)}>
-            <h3>Fisioterapia Ortopédica</h3>
-            <p>
-              Tratamento de lesões e disfunções musculoesqueléticas com plano
-              individualizado.
-            </p>
-          </motion.article>
-
-          <motion.article className='service-card' {...scrollReveal(0.24)}>
-            <h3>Reabilitação Funcional</h3>
-            <p>
-              Recuperação orientada para movimento, autonomia e desempenho no dia a
-              dia.
-            </p>
-          </motion.article>
-
-          <motion.article className='service-card' {...scrollReveal(0.3)}>
-            <h3>Pilates</h3>
-            <p>
-              Sessões para postura, controle corporal e fortalecimento com foco em
-              prevenção e evolução.
-            </p>
-          </motion.article>
-        </div>
+        <motion.div {...scrollReveal(0.12)}>
+          <TreatmentCarousel
+            treatments={treatments}
+            getContactLink={getServiceContactLink}
+          />
+        </motion.div>
       </section>
 
       <section className='team section-shell' id='equipe'>
@@ -210,7 +307,7 @@ export function HomePage({ gallerySections }: HomePageProps) {
               {...scrollReveal(0.1 + index * 0.06)}
             >
               <a
-                href={getContactLink(professional.name)}
+                href={getProfessionalContactLink(professional.name)}
                 target='_blank'
                 rel='noreferrer'
                 className='team-photo-link'
@@ -256,16 +353,20 @@ export function HomePage({ gallerySections }: HomePageProps) {
         <motion.div className='contact-panel' {...scrollReveal(0.1)}>
           <div>
             <p className='section-label'>Contato</p>
-            <h2>Atendimento personalizado para cada fase da sua recuperação.</h2>
+            <h2>
+              Atendimento personalizado para cada fase da sua recuperação.
+            </h2>
             <p>
-              Entre em contato pelo WhatsApp ou acompanhe a clínica no Instagram e
-              Facebook.
+              Entre em contato pelo WhatsApp ou acompanhe a clínica no Instagram
+              e Facebook.
             </p>
           </div>
 
           <div className='contact-links'>
             <a
-              href={getContactLink('um profissional da equipe Trennar')}
+              href={getProfessionalContactLink(
+                'um profissional da equipe Trennar',
+              )}
               target='_blank'
               rel='noreferrer'
             >

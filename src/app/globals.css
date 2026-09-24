@@ -99,7 +99,6 @@ main {
 
 .hero-copy,
 .brand-panel,
-.service-card,
 .team-card,
 .gallery-item,
 .contact-panel {
@@ -283,28 +282,371 @@ h1 {
   max-width: 22ch;
 }
 
-.services-grid {
-  margin-top: 1.2rem;
+.treatment-carousel {
+  --treatment-gap: 1rem;
+  margin-top: 1.4rem;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.treatment-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: var(--radius-large);
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.treatment-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.treatment-track {
+  display: flex;
+  gap: var(--treatment-gap);
+}
+
+.treatment-card {
+  position: relative;
+  isolation: isolate;
+  flex: 0 0
+    calc(
+      (100% - (var(--treatment-columns) - 1) * var(--treatment-gap)) /
+        var(--treatment-columns)
+    );
+  min-height: 42rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-large);
+  color: var(--color-light);
+  background:
+    radial-gradient(circle at 95% 2%, rgba(251, 216, 0, 0.16), transparent 33%),
+    linear-gradient(158deg, rgba(29, 29, 29, 0.98), rgba(10, 10, 10, 0.96));
+  box-shadow: var(--shadow-panel);
+  text-decoration: none;
+  scroll-snap-align: start;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.treatment-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--color-yellow), transparent 72%);
+  z-index: -1;
+}
+
+.treatment-card::after {
+  content: '';
+  position: absolute;
+  right: -3.3rem;
+  top: 8.2rem;
+  width: 9rem;
+  height: 9rem;
+  border: 1px solid rgba(251, 216, 0, 0.12);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.treatment-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--line-strong);
+  box-shadow: 0 34px 78px rgba(0, 0, 0, 0.56);
+}
+
+.treatment-card:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: -4px;
+}
+
+.treatment-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 1rem;
 }
 
-.service-card {
-  border-radius: var(--radius-medium);
-  padding: 1.2rem;
-  display: grid;
-  gap: 0.75rem;
+.treatment-card-top > div {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
 }
 
-.service-card h3 {
-  font-size: 1.85rem;
+.treatment-index {
+  font-family: var(--font-display), serif;
+  color: var(--color-yellow);
+  font-size: 1.35rem;
+  font-weight: 700;
 }
 
-.service-card p {
+.treatment-card-top p {
   margin: 0;
-  color: color-mix(in srgb, var(--color-light) 80%, var(--color-gray));
-  line-height: 1.65;
+  padding-left: 0.65rem;
+  border-left: 1px solid var(--line-soft);
+  color: var(--color-gray);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.treatment-icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: rgba(251, 216, 0, 0.06);
+}
+
+.treatment-icon svg {
+  width: 1.6rem;
+  fill: none;
+  stroke: var(--color-yellow);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.treatment-title-group {
+  margin-top: 2rem;
+}
+
+.treatment-title-group > span {
+  color: var(--color-yellow);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.treatment-title-group h3 {
+  margin-top: 0.35rem;
+  font-size: clamp(2.1rem, 3.4vw, 2.85rem);
+  line-height: 0.9;
+}
+
+.treatment-title-group p {
+  min-height: 7.7rem;
+  margin: 1rem 0 0;
+  color: color-mix(in srgb, var(--color-light) 82%, var(--color-gray));
+  font-size: 0.9rem;
+  line-height: 1.68;
+}
+
+.treatment-features {
+  margin: 0;
+  padding: 1rem 0;
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+  border-block: 1px solid var(--line-soft);
+}
+
+.treatment-features li {
+  position: relative;
+  padding-left: 1rem;
+  color: color-mix(in srgb, var(--color-light) 88%, var(--color-gray));
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.treatment-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--color-yellow);
+  box-shadow: 0 0 0 3px rgba(251, 216, 0, 0.1);
+}
+
+.treatment-prices {
+  display: grid;
+  padding-block: 0.85rem;
+}
+
+.treatment-price-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.18rem 0.8rem;
+  align-items: baseline;
+  padding-block: 0.42rem;
+}
+
+.treatment-price-row + .treatment-price-row {
+  border-top: 1px solid var(--line-soft);
+}
+
+.treatment-price-row span {
+  color: var(--color-gray);
+  font-size: 0.73rem;
+  line-height: 1.35;
+}
+
+.treatment-price-row strong {
+  color: var(--color-yellow);
+  font-family: var(--font-display), serif;
+  font-size: 1.33rem;
+  line-height: 1;
+  text-align: right;
+}
+
+.treatment-price-row small {
+  grid-column: 2;
+  color: var(--color-gray);
+  font-size: 0.61rem;
+  text-align: right;
+}
+
+.treatment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  margin-top: auto;
+  color: var(--color-gray);
+  font-size: 0.68rem;
+}
+
+.treatment-meta span + span {
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.treatment-meta span + span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 0.24rem;
+  height: 0.24rem;
+  border-radius: 50%;
+  background: var(--color-yellow);
+}
+
+.treatment-cta {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.treatment-cta svg,
+.treatment-arrows svg {
+  width: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.treatment-cta svg {
+  color: var(--color-yellow);
+  transition: transform 220ms ease;
+}
+
+.treatment-card:hover .treatment-cta svg {
+  transform: translateX(4px);
+}
+
+.treatment-controls {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.treatment-status {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  color: var(--color-gray);
+  font-family: var(--font-display), serif;
+  font-size: 1rem;
+}
+
+.treatment-status strong {
+  color: var(--color-yellow);
+  font-size: 1.4rem;
+}
+
+.treatment-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.42rem;
+}
+
+.treatment-dots button {
+  width: 1.8rem;
+  height: 0.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-gray) 35%, transparent);
+  cursor: pointer;
+  transition:
+    width 220ms ease,
+    background-color 220ms ease;
+}
+
+.treatment-dots button.is-active {
+  width: 3rem;
+  background: var(--color-yellow);
+}
+
+.treatment-arrows {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.treatment-arrows button {
+  width: 2.7rem;
+  height: 2.7rem;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: 50%;
+  color: var(--color-light);
+  background: rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition:
+    color 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.treatment-arrows button:hover:not(:disabled) {
+  color: var(--color-yellow);
+  border-color: var(--line-strong);
+  background: rgba(251, 216, 0, 0.08);
+}
+
+.treatment-arrows button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .team-grid {
@@ -518,10 +860,6 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -538,9 +876,29 @@ h1 {
     height: 15rem;
   }
 
-  .services-grid,
   .team-grid {
     grid-template-columns: 1fr;
+  }
+
+  .treatment-card {
+    min-height: 39.5rem;
+    padding: 1.1rem;
+  }
+
+  .treatment-title-group p {
+    min-height: 0;
+  }
+
+  .treatment-controls {
+    grid-template-columns: auto 1fr;
+  }
+
+  .treatment-dots {
+    display: none;
+  }
+
+  .treatment-arrows {
+    justify-self: end;
   }
 
   .brand-subtitle {
