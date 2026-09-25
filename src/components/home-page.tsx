@@ -281,20 +281,6 @@ export function HomePage({ gallerySections }: HomePageProps) {
         </div>
       </header>
 
-      <section className='services section-shell' id='servicos'>
-        <motion.div className='section-head' {...scrollReveal(0.06)}>
-          <p className='section-label'>Especialidades</p>
-          <h2>Atendimento orientado pelas especialidades da clínica</h2>
-        </motion.div>
-
-        <motion.div {...scrollReveal(0.12)}>
-          <TreatmentCarousel
-            treatments={treatments}
-            getContactLink={getServiceContactLink}
-          />
-        </motion.div>
-      </section>
-
       <section className='team section-shell' id='equipe'>
         <motion.div className='section-head' {...scrollReveal(0.06)}>
           <p className='section-label'>Equipe</p>
@@ -350,6 +336,20 @@ export function HomePage({ gallerySections }: HomePageProps) {
           </motion.div>
         </section>
       ))}
+
+      <section className='services section-shell' id='servicos'>
+        <motion.div className='section-head' {...scrollReveal(0.06)}>
+          <p className='section-label'>Especialidades</p>
+          <h2>Atendimento orientado pelas especialidades da clínica</h2>
+        </motion.div>
+
+        <motion.div {...scrollReveal(0.12)}>
+          <TreatmentCarousel
+            treatments={treatments}
+            getContactLink={getServiceContactLink}
+          />
+        </motion.div>
+      </section>
 
       <section className='location section-shell' id='localizacao'>
         <motion.div className='location-panel' {...scrollReveal(0.08)}>
