@@ -15,6 +15,8 @@ const WHATSAPP_BASE_URL = 'https://api.whatsapp.com/send/';
 const INSTAGRAM_URL = 'https://www.instagram.com/trennar.fisioterapia/';
 const FACEBOOK_URL =
   'https://facebook.com/1047824268658975?ref=NONE_xav_ig_profile_page_web';
+const GOOGLE_MAPS_URL =
+  'https://www.google.com/maps/dir/?api=1&destination=Rua+Vit%C3%B3rio+Viero%2C+148%2C+Cer%C3%A2mica%2C+Erechim%2C+RS%2C+99709-456';
 const BRAND_LOGO = '/images/brand/trennar-logo.jpg';
 
 const EASING = [0.22, 1, 0.36, 1] as const;
@@ -349,6 +351,60 @@ export function HomePage({ gallerySections }: HomePageProps) {
         </section>
       ))}
 
+      <section className='location section-shell' id='localizacao'>
+        <motion.div className='location-panel' {...scrollReveal(0.08)}>
+          <div className='location-copy'>
+            <p className='section-label'>Onde estamos</p>
+            <h2>Seu cuidado começa em um espaço preparado para receber você.</h2>
+            <p className='location-description'>
+              A Trennar é uma clínica especializada em fisioterapia e reabilitação
+              funcional, localizada em Erechim.
+            </p>
+
+            <address>
+              <strong>Trennar — Clínica de Fisioterapia</strong>
+              <span>Rua Vitório Viero, 148 — Bairro Cerâmica</span>
+              <span>Erechim — RS · CEP 99709-456</span>
+            </address>
+
+            <a
+              className='location-route-link'
+              href={GOOGLE_MAPS_URL}
+              target='_blank'
+              rel='noreferrer'
+            >
+              <span>Abrir rota no Google Maps</span>
+              <svg aria-hidden='true' viewBox='0 0 24 24'>
+                <path d='m9 5 7 7-7 7' />
+              </svg>
+            </a>
+          </div>
+
+          <a
+            className='location-map-card'
+            href={GOOGLE_MAPS_URL}
+            target='_blank'
+            rel='noreferrer'
+            aria-label='Ver a localização da Trennar no Google Maps'
+          >
+            <span className='location-road location-road-primary' />
+            <span className='location-road location-road-secondary' />
+            <span className='location-road location-road-tertiary' />
+            <span className='location-pin'>
+              <svg aria-hidden='true' viewBox='0 0 48 48'>
+                <path d='M24 43s13-12.2 13-25A13 13 0 0 0 11 18c0 12.8 13 25 13 25Z' />
+                <circle cx='24' cy='18' r='4.5' />
+              </svg>
+            </span>
+            <span className='location-map-label'>
+              <strong>Trennar</strong>
+              <small>Erechim · RS</small>
+            </span>
+            <span className='location-map-action'>Ver no mapa</span>
+          </a>
+        </motion.div>
+      </section>
+
       <section className='contact section-shell' id='contato'>
         <motion.div className='contact-panel' {...scrollReveal(0.1)}>
           <div>
@@ -377,6 +433,9 @@ export function HomePage({ gallerySections }: HomePageProps) {
             </a>
             <a href={FACEBOOK_URL} target='_blank' rel='noreferrer'>
               Facebook
+            </a>
+            <a href={GOOGLE_MAPS_URL} target='_blank' rel='noreferrer'>
+              Como chegar
             </a>
           </div>
         </motion.div>
